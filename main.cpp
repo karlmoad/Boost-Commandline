@@ -9,7 +9,7 @@ int main(int argc, char* argv[]) {
     desc.add_options()
             ("help", "produce help message")
             ("compression", po::value<int>(), "set compression level")
-            ;
+            ("config",po::value<std::string>(), "set configuration");
 
     po::variables_map vm;
     po::store(po::parse_command_line(argc, argv, desc), vm);
@@ -21,10 +21,15 @@ int main(int argc, char* argv[]) {
     }
 
     if (vm.count("compression")) {
-        std::cout << "Compression level was set to "
+        std::cout << "Compression level was set to: "
              << vm["compression"].as<int>() << ".\n";
     } else {
         std::cout << "Compression level was not set.\n";
+    }
+
+    if(vm.count("config")){
+        std::cout << "Configuration value set to: "
+                  << vm["config"].as<std::string>() << ".\n";
     }
 
     return 0;
